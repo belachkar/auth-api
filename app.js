@@ -1,45 +1,36 @@
 'use strict';
 const express = require('express');
-const router = express.Router();
-const sqlite3 = require('sqlite3').verbose();
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { createUserTable, createUser, findUserByEmail } = require('./db/user');
+const { initDB } = require('./db/db');
 
 // local variables
 const port = process.env.SRV_PORT;
 const host = process.env.SRV_HOST;
+const routes = {
+  auth: require('./routes/auth')
+};
 
-// Create Database object, db folder must be created
-const db = new sqlite3.Database('./db/data.db');
-
-// Creating the users table if not already created
-createUserTable(db);
+// Create Database instance object
+initDB((err) => {
+  if (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+});
 
 // Main server
 const app = express();
 
 // Parse data from request body
-router.use(express.urlencoded({ extended: false }));
-router.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-// Routes
-router.get('/', (req, res) => {
-  res.status(200).send('<h1>This is an authentication server</h1>');
-});
-
-router.post('/register', (req, res) => {
-  res.status(200).send({ access_token: '' });
-});
-
-router.post('/login', (req, res) => {
-  res.status(200).send({ access_token: '' });
-});
-
-app.use(router);
+// Import routes
+app.use(routes.auth);
 
 // Start the server
 app.listen(port, host, () => {
-  console.log('Server listening at:', host+':'+port);
+  console.log(`Server listening at: http://${host}:${port}`);
 });

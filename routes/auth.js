@@ -53,7 +53,6 @@ router.post('/login', (req, res) => {
     if (!user) {
       return res.status(404).send('User not found!');
     }
-    console.log(password, user.password);
     const isPassValid = bcrypt.compareSync(password, user.password);
     if (!isPassValid) {
       return res.status(401).send('Password or email not valid!');

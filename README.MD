@@ -6,8 +6,8 @@ NodeJS authentication API server with JWT and SQLite DB.
 
 | Package | Description |
 |---------|-------------|
-| bcryptjs | Password encription |
+| bcryptjs | Password encryption |
 | express | NodeJS web Framework |
-| jsonwebtoken | Authentication tokens management |
-| sqlite3 | Lite relational database |
+| jsonwebtoken | JWT Authentication tokens management |
+| sqlite3 | SQL Lite relational database |
 | dotenv | Add and cache environment variables |

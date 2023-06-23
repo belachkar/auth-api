@@ -29,6 +29,6 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^9.0.0",
-    "sqlite3": "^4.0.9"
+    "sqlite3": "^5.1.6"
   }
 }
